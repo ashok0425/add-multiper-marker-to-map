@@ -26,19 +26,37 @@
             zoom: 5,
             center: myLatLng,
           });
-  
-          new google.maps.Marker({
-            position: myLatLng,
-            map,
-            title: "Hello Rajkot!",
-          });
+          locations = [
+            ['Mumbai', 19.0760,72.8777],
+            ['Pune', 18.5204,73.8567],
+            ['Bhopal ', 23.2599,77.4126],
+            ['Agra', 27.1767,78.0081],
+            ['Delhi', 28.7041,77.1025],
+            ['Rajkot', 22.2734719,70.7512559],
+        ];
+        var marker, i;
+              
+              for (i = 0; i < locations.length; i++) {  
+                    marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                      map: map
+                    });
+                      
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                      return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                      }
+                    })(marker, i));
+    
+              }
         }
   
         window.initMap = initMap;
     </script>
   
     <script type="text/javascript"
-        src="https://maps.google.com/maps/api/js?key={{yourtoken}}&&callback=initMap" ></script>
+        src="https://maps.google.com/maps/api/js?key=API_KEY&&callback=initMap" ></script>
   
 </body>
 </html>
